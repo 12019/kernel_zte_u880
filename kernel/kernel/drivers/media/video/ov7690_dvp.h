@@ -1,0 +1,1048 @@
+
+#define		FULL_JPEG_WIDTH 	0x400
+#define		FULL_JPEG_HEIGHT 	0x600
+#define 		D1_WIDTH			720
+#define 		D1_HEIGHT      		480
+#define 		VGA_WIDTH			640
+#define 		VGA_HEIGHT			480
+#define 		QVGA_WIDTH		320
+#define 		QVGA_HEIGHT		240
+#define 		CIF_WIDTH			352
+#define 		CIF_HEIGHT			288
+#define 		QCIF_WIDTH			176
+#define		QCIF_HEIGHT		144
+
+
+#define OV7690_DVP_END_ADDR   	0xFF
+#define OV7690_DVP_END_VAL     	0xFF
+#define OV7690_PID    0x0a
+#define OV7690_VER    0x0b
+
+#define PID_OV76XX			0x76
+#define PID_7690			0x91
+
+#define OV7690_REG_PWD  0x49
+#define OV7690_PWD_1_8  0x0C
+#define INVMASK(v)  (0xff-v)
+
+// white balance related
+typedef enum 
+{
+	CAM_WHITEBALANCEMODE_AUTO = 0,
+	CAM_WHITEBALANCEMODE_INCANDESCENT,
+	CAM_WHITEBALANCEMODE_FLUORESCENT1,
+	CAM_WHITEBALANCEMODE_FLUORESCENT2,
+	CAM_WHITEBALANCEMODE_FLUORESCENT3,
+	CAM_WHITEBALANCEMODE_DAYLIGHT,
+	CAM_WHITEBALANCEMODE_CLOUDY,
+	CAM_WHITEBALANCEMODE_SHADOW,
+
+	CAM_WHITEBALANCEMODE_MAX,
+} CAM_WhiteBalanceMode;
+
+// color effect related
+typedef enum 
+{
+	CAM_COLOREFFECT_OFF = 0,
+	CAM_COLOREFFECT_VIVID,
+	CAM_COLOREFFECT_SEPIA,
+	CAM_COLOREFFECT_GRAYSCALE,
+	CAM_COLOREFFECT_NEGATIVE,
+	CAM_COLOREFFECT_SOLARIZE,
+	CAM_COLOREFFECT_POSTERIZE,
+	CAM_COLOREFFECT_AQUA,
+	CAM_COLOREFFECT_BLACKBOARD,
+	CAM_COLOREFFECT_WHITEBOARD,
+
+	CAM_COLOREFFECT_MAX,
+} CAM_ColorEffect;
+
+typedef struct {
+	u16 reg_num;
+	unsigned char value;
+	unsigned char mask;
+}OV7690_WREG,*POV7690_WREG;
+
+/* init setting */
+
+typedef struct {
+	u16 reg_base;
+	char value[256];
+	int len;
+}OV7690_REG_ARRAY;
+
+//OV7690_REG_ARRAY firmware_regs[]=
+OV7690_WREG ov7690_AF_firmware[]={
+}
+;
+
+OV7690_WREG ov7690_dvp_fmt_global_init[] =
+{
+//{0x12, 0x80},
+{0x49, 0x0c}, //0xd6
+{0x0c, 0x46}, //0xd6
+{0x27, 0x80},
+{0x64, 0x10},
+{0x68, 0xb4},
+{0x69, 0x12},
+{0x2f, 0x60},
+{0x41, 0x43},
+{0x44, 0x24},
+{0x4b, 0x8b},
+{0x4c, 0x7b},
+{0x4d, 0x0a},
+{0x29, 0x50},
+//{0x1b, 0x19},
+{0x39, 0x80},
+{0x80, 0x7e},
+{0x81, 0xff},
+{0x91, 0x20},
+{0x21, 0x66},
+{0x48, 0x42},
+{0x42, 0x0d},
+{0x11, 0x01},
+{0x12, 0x00},
+{0x82, 0x03},
+{0xd0, 0x48},
+{0x2B, 0x38},
+{0x15, 0x00},
+{0x14, 0x21},
+{0x16, 0x00},
+{0x17, 0x69},
+{0x18, 0xa4},
+{0x19, 0x0c},
+{0x1a, 0xf6},
+{0x3e, 0x30},
+{0xc8, 0x02},
+{0xc9, 0x80},
+{0xca, 0x01},
+{0xcb, 0xe0},
+{0xcc, 0x02},
+{0xcd, 0x80},
+{0xce, 0x01},
+{0xcf, 0xe0},
+{0x80, 0x7F},
+{0x85, 0x10},
+{0x86, 0x10},
+{0x87, 0x10},
+{0x88, 0x80},
+{0x89, 0x2a},
+{0x8a, 0x25},
+{0x8b, 0x25},
+{0xbb, 0xac},
+{0xbc, 0xae},
+{0xbd, 0x02},
+{0xbe, 0x1f},
+{0xbf, 0x93},
+{0xc0, 0xb1},
+{0xc1, 0x1A},
+{0xb4, 0x06},
+{0xb5, 0x05},
+{0xb6, 0x00},
+{0xb7, 0x00},
+{0xb8, 0x06},
+{0xb9, 0x02},
+{0xba, 0x78},
+{0x24, 0x94},//0x78
+{0x25, 0x80},//0x68
+{0x26, 0xB4},//0xc2
+{0x81, 0xff},
+{0x5A, 0x10},
+{0x5B, 0xA1},
+{0x5C, 0x3A},
+{0x5d, 0x20},
+{0xa3, 0x05},
+{0xa4, 0x10},
+{0xa5, 0x25},
+{0xa6, 0x46},
+{0xa7, 0x57},
+{0xa8, 0x64},
+{0xa9, 0x70},
+{0xaa, 0x7c},
+{0xab, 0x87},
+{0xac, 0x90},
+{0xad, 0x9f},
+{0xae, 0xac},
+{0xaf, 0xc1},
+{0xb0, 0xd5},
+{0xb1, 0xe7},
+{0xb2, 0x21},
+{0x8c, 0x52},
+{0x8d, 0x11},
+{0x8e, 0x12},
+{0x8f, 0x19},
+{0x90, 0x50},
+{0x91, 0x20},
+{0x92, 0xb1},
+{0x93, 0x9a},
+{0x94, 0xc },
+{0x95, 0xc },
+{0x96, 0xf0},
+{0x97, 0x10},
+{0x98, 0x61},
+{0x99, 0x63},
+{0x9a, 0x71},
+{0x9b, 0x78},
+{0x9c, 0xf0},
+{0x9d, 0xf0},
+{0x9e, 0xf0},
+{0x9f, 0xff},
+{0xa0, 0xa7},
+{0xa1, 0xb0},
+{0xa2, 0xf },
+{0x13, 0xf7},
+{0x50, 0x49},
+{0xc2, 0x00},
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL},
+          
+
+};
+#if 0
+{
+	//      0x12, 0x80,
+	{0x0c, 0x46},
+	{0x48, 0x42},
+	{0x41, 0x43},
+	{0x4c, 0x73},
+	{0x81, 0xef},
+	{0x21, 0x44},
+	{0x16, 0x03},
+	{0x39, 0x80},
+	{0x1e, 0xb1},
+	{0x12, 0x00},
+	{0x82, 0x03},
+	{0xd0, 0x48},
+	{0x80, 0x7f},
+	{0x3e, 0x30},
+	{0x22, 0x00},
+	{0x17, 0x69},
+	{0x18, 0xa4},
+	{0x19, 0x08},
+	{0x1a, 0xf6},
+	{0xc8, 0x02},
+	{0xc9, 0x80},
+	{0xca, 0x01},
+	{0xcb, 0xe1},
+	{0xcc, 0x02},
+	{0xcd, 0x80},
+	{0xce, 0x01},
+	{0xcf, 0xe1},
+	{0x85, 0x90},
+	{0x86, 0x18},
+	{0x87, 0x00},
+	{0x88, 0x10},
+	{0x89, 0x18},
+	{0x8a, 0x10},
+	{0x8b, 0x14},
+	{0xBB, 0x20},
+	{0xBC, 0x40},
+	{0xBD, 0x60},
+	{0xBE, 0x58},
+	{0xBF, 0x48},
+	{0xC0, 0x10},
+	{0xC1, 0x33},
+	{0xc2, 0x02},
+	{0xb7, 0x02},
+	{0xb8, 0x0b},
+	{0xb9, 0x00},
+	{0xba, 0x18},
+	{0x5A, 0x4A},
+	{0x5B, 0x9F},
+	{0x5C, 0x48},
+	{0x5d, 0x32},
+	{0x24, 0x78},
+	{0x25, 0x68},
+	{0x26, 0xc2},
+	{0xa3, 0x04},
+	{0xa4, 0x06},
+	{0xa5, 0x10},
+	{0xa6, 0x38},
+	{0xa7, 0x50},
+	{0xa8, 0x66},
+	{0xa9, 0x78},
+	{0xaa, 0x85},
+	{0xab, 0x90},
+	{0xac, 0x99},
+	{0xad, 0xa8},
+	{0xae, 0xb2},
+	{0xaf, 0xc6},
+	{0xb0, 0xd7},
+	{0xb1, 0xe8},
+	{0xb2, 0x20},
+	{0xb4, 0x0a},
+	{0x8e, 0x92},
+	{0x96, 0xff},
+	{0x97, 0x00},
+	{0x50, 0x4d},
+	{0x51, 0x3f},
+	{0x21, 0x57},
+	{0x20, 0x00},
+	{0x14, 0x49},
+	{0x13, 0xf7},
+	{0x11, 0x01}, /*16fps*/
+	//{0x11, 0x03}, /*8 fps*/
+	{0x68, 0xb0},
+	{0x42, 0x0d},
+	//0x11, 0x00,
+	//0x29, 0x50,
+	//0x2a, 0x30,
+	//0x2b, 0x08,
+	//0x2c, 0x2b,
+	//0x15, 0x00,
+	//0x2d, 0x00,
+	//0x2e, 0x00,
+	{0x49, 0x0C},
+
+	{0x80, 0x7f},
+	{0x85, 0x90},
+	{0x86, 0x00},
+	{0x87, 0x00},
+	{0x88, 0x10},
+	{0x89, 0x30},
+	{0x8a, 0x29},
+	{0x8b, 0x26},
+	/*contrase middle*/
+	{0x81, 0xff},
+	{0x81, 0xef},
+	{0xd5, 0x00},
+	{0xd4, 0x20},
+	{0xd3, 0x00},
+	{0xD2, 0x00},
+	{0xdc, 0x01},
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL},
+
+};
+#endif
+OV7690_WREG ov7690_dvp_jpeg_to_yuv[] =
+{
+
+
+{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL},
+};
+
+
+/* preview setting */
+
+OV7690_WREG ov7690_dvp_fmt_yuv422_vga[] =
+{
+	{0x16, 0x03},
+	{0x17, 0x69},
+	{0x18, 0xa4},
+	{0x19, 0x0a} /*0x0c */ ,
+	{0x1a, 0xf6},
+	{0x22, 0x00},
+	{0xc8, 0x02},
+	{0xc9, 0x80},
+	{0xca, 0x01},
+	{0xcb, 0xe1},
+	{0xcc, 0x02},
+	{0xcd, 0x80},
+	{0xce, 0x01},
+	{0xcf, 0xe1},
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG ov7690_dvp_fmt_yuv422_d1[] =
+{
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG ov7690_dvp_fmt_yuv422_qvga[] =
+{
+	{0x16, 0x03},
+	{0x17, 0x69},
+	{0x18, 0xa4},
+	{0x19, 0x08},
+	{0x1a, 0xf6},
+	{0x22, 0x10},
+	{0xc8, 0x02},
+	{0xc9, 0x80},
+	{0xca, 0x01},
+	{0xcb, 0xe2},
+	{0xcc, 0x01},
+	{0xcd, 0x40},
+	{0xce, 0x00},
+	{0xcf, 0xf1},
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL},
+};
+
+OV7690_WREG ov7690_dvp_fmt_yuv422_qcif_rotate[] =
+{
+       {0x11, 0x03},///for vt 8fps
+	{0x17, 0xe3},
+	{0x18, 0xa4},
+	{0x19, 0x0c},
+	{0x1a, 0xf6},
+	{0xc8, 0x01},
+	{0xc9, 0x8a},
+	{0xca, 0x01},
+	{0xcb, 0xe0},
+	{0xcc, 0x00},
+	{0xcd, 0x90},
+	{0xce, 0x00},
+	{0xcf, 0xb0},
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL},
+};
+
+
+OV7690_WREG ov7690_dvp_fmt_yuv422_qcif[] =
+{
+	{0x16, 0x03},
+	{0x17, 0x83},
+	{0x18, 0x97},
+	{0x19, 0x08},
+	{0x1a, 0xf6},
+	{0x22, 0x10},
+	{0xc8, 0x02},
+	{0xc9, 0x4c},
+	{0xca, 0x01},
+	{0xcb, 0xe2},
+	{0xcc, 0x00},
+	{0xcd, 0xb0},
+	{0xce, 0x00},
+	{0xcf, 0x91},
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL},
+};
+
+OV7690_WREG ov7690_dvp_fmt_yuv422_cif[] =
+{
+	{0x16, 0x03},
+	{0x17, 0x83},
+	{0x18, 0x97},
+	{0x19, 0x08},
+	{0x1a, 0xf6},
+	{0x22, 0x00},
+	{0xc8, 0x02},
+	{0xc9, 0x4c},
+	{0xca, 0x01},
+	{0xcb, 0xe2},
+	{0xcc, 0x01},
+	{0xcd, 0x60},
+	{0xce, 0x01},
+	{0xcf, 0x21},
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL},
+};
+
+OV7690_WREG ov7690_dvp_fmt_yuv422_qxga[] =	
+{
+	  {0x16, 0x03},
+        {0x17, 0x69},
+        {0x18, 0xa4},
+        {0x19, 0x08},
+        {0x1a, 0xf6},
+        {0x22, 0x10},
+        {0xc8, 0x02},
+        {0xc9, 0x80},
+        {0xca, 0x01},
+        {0xcb, 0xe2},
+        {0xcc, 0x01},
+        {0xcd, 0x40},
+        {0xce, 0x00},
+        {0xcf, 0xf1},
+
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL},
+
+};
+
+/* captuer setting for jpeg */
+OV7690_WREG ov7690_dvp_fmt_jpeg_5M[] =
+{
+
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG ov7690_dvp_fmt_jpeg_vga[] =
+{
+
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG ov7690_dvp_fmt_jpeg_qxga[] =
+{
+
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG ov7690_dvp_fmt_jpeg_uxga[] =
+{
+
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG ov7690_dvp_fmt_jpeg_sxga[] =
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+OV7690_WREG ov7690_dvp_fmt_jpeg_qvga[] =
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+/* tuing setting */
+
+OV7690_WREG OV7690SET_FORMAT_JPG_QL0[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+OV7690_WREG OV7690SET_FORMAT_JPG_QL1[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+OV7690_WREG OV7690SET_FORMAT_JPG_QL2[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+
+
+
+OV7690_WREG OV7690SET_MIRRORFLIP_Mirror[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_MIRRORFLIP_Flip[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_MIRRORFLIP_MirrorFlip[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_MIRRORFLIP_Normal[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_BANDING_50Hz[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_BANDING_60Hz[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_SPE_Normal[]=
+{
+{0x81, 0xdf},
+{0x28, 0x00},
+{0xd2, 0x00},
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_SPE_BlackWhite[]=
+{
+{0x81, 0xff},
+{0x28, 0x00},
+{0xd2, 0x18},
+{0xda, 0x80},
+{0xdb, 0x80},
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_SPE_Bluish[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_SPE_Sepia[]=
+{
+{0x81, 0xff},
+{0x28, 0x00},
+{0xd2, 0x18},
+{0xda, 0x40},
+{0xdb, 0xa0},
+	
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_SPE_Reddish[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_SPE_Greenish[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_SPE_Negative[]=
+{
+{0x81, 0xff},
+{0x28, 0x80},
+{0xd2, 0x00}, 
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_EV_N13[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_EV_N10[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_EV_N07[]=
+{
+
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_EV_N03[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_EV_000[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_EV_P03[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_EV_P07[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_EV_P10[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_EV_P13[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Brightness_P4[]=
+{
+
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Brightness_P3[]=
+{
+	//{0x24, 0xa8},
+	//{0x25, 0xa0},
+	//{0x26, 0xe5},
+
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Brightness_P2[]=
+{
+	{0x24, 0xb8},
+	{0x25, 0xb0},
+	{0x26, 0xf8},
+
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Brightness_P1[]=
+{
+	{0x24, 0x98},
+	{0x25, 0x90},
+	{0x26, 0xd6},
+	
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Brightness_00[]=
+{
+	{0x24, 0x88},
+	{0x25, 0x80},
+	{0x26, 0xc5},
+	
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Brightness_N1[]=
+{
+	{0x24, 0x50},
+	{0x25, 0x48},
+	{0x26, 0x92},
+ 
+	
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Brightness_N2[]=
+{
+	{0x24, 0x30},
+	{0x25, 0x28},
+	{0x26, 0x61},
+
+	
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Brightness_N3[]=
+{
+	//{0x24, 0x40},
+	//{0x25, 0x38},
+	//{0x26, 0x71},
+	
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Brightness_N4[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Contrast_P4[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Contrast_P3[]=
+{
+	//{0xd5, 0x20},
+	//{0xd4, 0x2c},
+	//{0xd3, 0x00},
+	//{0xd2, 0x04},
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Contrast_P2[]=
+{
+	//{0xd5, 0x20},
+	//{0xd4, 0x28},
+	//{0xd3, 0x00},
+	//{0xd2, 0x04},
+
+        {0x81, 0xff},
+        {0xd5, 0x20},
+        {0xd4, 0x30},
+        {0xd3, 0x00},
+        {0xd2, 0x04},
+        {0xdc, 0x01},
+
+{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Contrast_P1[]=
+{
+	//{0xd5, 0x20},
+	//{0xd4, 0x24},
+	//{0xd3, 0x00},
+	//{0xd2, 0x04},
+        {0x81, 0xff},
+        {0xd5, 0x20},
+        {0xd4, 0x28},
+        {0xd3, 0x00},
+        {0xd2, 0x04},
+        {0xdc, 0x01},
+
+{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Contrast_00[]=
+{
+	//{0xd5, 0x20},
+	//{0xd4, 0x20},
+	//{0xd3, 0x00},
+	//{0xd2, 0x04},
+        {0x81, 0xff},
+      //  {0x81, 0xef},
+        {0xd5, 0x20},
+        {0xd4, 0x20},
+        {0xd3, 0x00},
+        {0xD2, 0x04},
+        {0xdc, 0x01},
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Contrast_N1[]=
+{
+	//{0xd5, 0x20},
+	//{0xd4, 0x1c},
+	//{0xd3, 0x20},
+	//{0xd2, 0x04},
+
+
+  	 {0x81, 0xff},
+        {0xd5, 0x20},
+        {0xd4, 0x18},
+        {0xd3, 0x48},
+        {0xd2, 0x04},
+        {0xdc, 0x01},
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Contrast_N2[]=
+{
+	//{0xd5, 0x20},
+	//{0xd4, 0x18},
+	//{0xd3, 0x48},
+	//{0xd2, 0x04},
+
+	 {0x81, 0xff},
+        {0xd5, 0x20},
+        {0xd4, 0x10},
+        {0xd3, 0xd0},
+        {0xd2, 0x04},
+        {0xdc, 0x01},
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Contrast_N3[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Contrast_N4[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Saturation_000[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Saturation_025[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Saturation_050[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Saturation_075[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Saturation_100[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Saturation_125[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Saturation_150[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Saturation_175[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Saturation_200[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Sharpness_OFF[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Sharpness_1[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Sharpness_2[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Sharpness_3[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Sharpness_4[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Sharpness_5[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Sharpness_6[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Sharpness_7[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Sharpness_8[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_Sharpness_Auto[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_WB_AUTO[]=
+{
+	{0x13, 0xf7},
+	{0x15, 0x00},
+ 
+    {OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+
+};
+OV7690_WREG OV7690SET_WB_CLOUD[]=
+{
+{0x13, 0xf5},
+{0x01, 0x58},
+{0x02, 0x60},
+{0x03, 0x40},
+{0x15, 0x00},
+    {OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+OV7690_WREG OV7690SET_WB_DAYLIGHT[]=
+{
+{0x13, 0xf5},
+{0x01, 0x5a},
+{0x02, 0x5c},
+{0x03, 0x40},
+{0x15, 0x00},
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+OV7690_WREG OV7690SET_WB_INCANDESCENCE[]=
+{
+//office
+{0x13, 0xf5},
+{0x01, 0x84},
+{0x02, 0x4c},
+{0x03, 0x40},
+{0x15, 0x00},
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_WB_FLUORESCENT[]=
+{
+//home
+{0x13, 0xf5},
+{0x01, 0x96},
+{0x02, 0x40},
+{0x03, 0x40},
+{0x15, 0x00},
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_WB_TUNGSTEN[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_WB_MANUAL[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_AECWEIGHT_WholeAverage[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+OV7690_WREG OV7690SET_AECWEIGHT_Landscape[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+
+OV7690_WREG OV7690SET_AECWEIGHT_CenterAverage[]=
+{
+
+	{OV7690_DVP_END_ADDR, OV7690_DVP_END_VAL}
+};
+
+
+
+
+
