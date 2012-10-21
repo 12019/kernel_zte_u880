@@ -1,0 +1,19 @@
+
+
+U810 Linux kernel(2.6.32):
+
+1) ensure you have installed arm-eabi-4.4.0
+2) enter directory of lnx2632/
+3) run "make u810_defconfig"
+4) run "make uImage"
+5) uImage (arch/arm/boot/uImage)
+6) Finished.
+
+U802 Linux kernel(2.6.32):
+
+1) ensure you have installed arm-eabi-4.4.0
+2) enter directory of lnx2632/
+3) run "make u802_defconfig"
+4) run "make uImage"
+5) uImage (arch/arm/boot/uImage)
+6) Finished.

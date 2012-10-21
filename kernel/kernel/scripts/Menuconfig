@@ -1,0 +1,41 @@
+#! /bin/sh
+
+# Load config options from a file.
+# Converts all "# OPTION is not set" lines to "OPTION=n" lines
+#
+function load_config_file () {
+	awk '
+	  /# .* is not set.*/ { printf("%s=n\n", $2) }
+	! /# .* is not set.*/ { print }
+	' $1 >.tmpconfig
+
+	source ./.tmpconfig
+	rm -f .tmpconfig
+}
+
+DEFAULTS=arch/$ARCH/defconfig
+if [ -f .config ]; then
+  DEFAULTS=.config
+fi
+
+if [ -f $DEFAULTS ]
+then
+  echo "Using defaults found in" $DEFAULTS
+  load_config_file $DEFAULTS
+else
+  echo "No defaults found"
+fi
+  
+echo "*** Checking Debug/Release options."
+if [ ! -f .config -o "$CONFIG_PXA920OS_RELEASE" = "y" ] ; then
+	echo "*** you choose to make [release] version."
+	echo "`cat release_version`" > .hhl_target_lspname
+	cat .hhl_target_lspname
+else
+	echo "*** you choose to make [debug] version."
+	echo "`cat debug_version`" > .hhl_target_lspname
+        cat .hhl_target_lspname
+	fi
+	echo "*** Check the top-level Makefile for additional configuration."
+
+exit 0
