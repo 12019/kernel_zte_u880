@@ -1,0 +1,11 @@
+if PLAT_PXA
+
+source "arch/arm/plat-pxa/imm/Kconfig"
+
+config PXA_VBUS
+	tristate
+	help
+		Enable support for PXA VBUS
+
+endif
+
